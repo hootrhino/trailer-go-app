@@ -19,7 +19,20 @@
 这是一个 RULEX 的 RPC 解码器 golang 服务模板，用来开发私有设备接入。
 ## 生成
 ```sh
-python -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./trailer.proto
+
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
+# Install protoc
+go get -u google.golang.org/grpc
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+protoc -I ./ --go_out ./ --go_opt paths=source_relative \
+    --go-grpc_out=./ --go-grpc_opt paths=source_relative \
+    ./trailer.proto
+
 ```
 
 ## 构建
