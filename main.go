@@ -40,14 +40,14 @@ func (testRpcServer) OnStream(s trailer.Trailer_OnStreamServer) error {
 		StreamRequest, err := s.Recv()
 		log.Println("来自协议包的日志 OnStream ", StreamRequest)
 		if err != nil {
+			s.Send(&trailer.StreamResponse{Code: 1, Data: []byte("OK")})
 			return err
 		}
 		if StreamRequest == nil {
+			s.Send(&trailer.StreamResponse{Code: 1, Data: []byte("OK")})
 			return nil
 		}
 	}
-	s.Send(&trailer.StreamResponse{Code: 1, Data: []byte("OK")})
-	return nil
 }
 func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*trailer.SchemaResponse, error) {
 	log.Println("来自协议包的日志 Schema")
