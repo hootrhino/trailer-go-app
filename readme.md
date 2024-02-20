@@ -39,6 +39,7 @@ protoc -I ./ --go_out ./ --go_opt paths=source_relative \
 ```sh
 go build
 ```
+![1708441320430](image/readme/1708441320430.png)
 ## 示例
 ```lua
     function(data)
